@@ -1,0 +1,134 @@
+﻿<Window x:Class="QUANLYPHONGKHAM.Views.AddKhamBenh"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="{Binding TieuDe}"
+        Height="520" Width="500"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="{DynamicResource MaterialDesign.Brush.Background}"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        x:Name="addKhamBenhWindow">
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ===== TIÊU ĐỀ ===== -->
+        <materialDesign:Card Grid.Row="0"
+                             Padding="14"
+                             Background="{DynamicResource MaterialDesign.Brush.Primary}"
+                             Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}"
+                             materialDesign:ElevationAssist.Elevation="Dp3"
+                             Margin="0,0,0,20">
+            <TextBlock Text="{Binding TieuDe}"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"/>
+        </materialDesign:Card>
+
+        <!-- ===== FORM NHẬP LIỆU ===== -->
+        <materialDesign:Card Grid.Row="1"
+                             Padding="20"
+                             materialDesign:ElevationAssist.Elevation="Dp2"
+                             Margin="0,0,0,20">
+            <StackPanel>
+                <!-- Họ Tên -->
+                <TextBox materialDesign:HintAssist.Hint="Họ Tên"
+                         materialDesign:HintAssist.IsFloating="True"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding HoTen, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0,0,0,16"/>
+
+                <!-- Giới Tính + Năm Sinh -->
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox Grid.Column="0"
+                              materialDesign:HintAssist.Hint="Giới Tính"
+                              materialDesign:HintAssist.IsFloating="True"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              ItemsSource="{Binding DanhSachGioiTinh}"
+                              SelectedItem="{Binding GioiTinh, Mode=TwoWay}"/>
+
+                    <TextBox Grid.Column="2"
+                             materialDesign:HintAssist.Hint="Năm Sinh"
+                             materialDesign:HintAssist.IsFloating="True"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Text="{Binding NamSinh, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+
+                <!-- Địa Chỉ -->
+                <TextBox materialDesign:HintAssist.Hint="Địa Chỉ"
+                         materialDesign:HintAssist.IsFloating="True"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding DiaChi, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0,0,0,16"/>
+
+                <!-- Ngày Khám + Loại Phòng Khám -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DatePicker Grid.Column="0"
+                                materialDesign:HintAssist.Hint="Ngày Khám"
+                                materialDesign:HintAssist.IsFloating="True"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                SelectedDate="{Binding NgayKham, Mode=TwoWay}"/>
+
+                    <ComboBox Grid.Column="2"
+                              materialDesign:HintAssist.Hint="Loại Phòng Khám"
+                              materialDesign:HintAssist.IsFloating="True"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              ItemsSource="{Binding DanhSachLoaiPhong}"
+                              DisplayMemberPath="TenLoaiPhongKham"
+                              SelectedItem="{Binding SelectedLoaiPhong, Mode=TwoWay}"/>
+                </Grid>
+            </StackPanel>
+        </materialDesign:Card>
+
+        <!-- ===== NÚT LƯU / HỦY ===== -->
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                    materialDesign:ButtonAssist.CornerRadius="8"
+                    Command="{Binding HuyCommand}"
+                    CommandParameter="{Binding ElementName=addKhamBenhWindow}"
+                    Margin="0,0,12,0">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Cancel"
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,8,0"/>
+                    <TextBlock Text="Hủy" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                    materialDesign:ButtonAssist.CornerRadius="8"
+                    Command="{Binding LuuCommand}"
+                    CommandParameter="{Binding ElementName=addKhamBenhWindow}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="ContentSave"
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,8,0"/>
+                    <TextBlock Text="Lưu" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
